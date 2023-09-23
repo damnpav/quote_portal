@@ -6,9 +6,11 @@ import plotly.io as pio
 import plotly.graph_objects as go
 import plotly.io
 from . import quotes_data_update as qdu
+from . import external_data_handler as edh
 
 
 def frontpage_start(request):
+    ### Plotting Graph ###
     symbols = ['EURUSD=X', 'GBPUSD=X']
     quotes_data_list = qdu.get_data(symbols)
     trace_list = []
@@ -34,7 +36,18 @@ def frontpage_start(request):
     # Create Figure and convert to HTML
     fig = go.Figure(data=trace_list, layout=layout)
     graph_html = plotly.io.to_html(fig, full_html=False)
-    return render(request, 'frontpage.html', {'graph': graph_html})
+    ###
+    ####################
+
+    ### External Excel Data ###
+    table_data = edh.prepare_data()
+    ####################
+
+    context = {
+        'graph': graph_html,
+        'table_data': table_data,
+    }
+    return render(request, 'frontpage.html', context)
 
 
 # Create your views here.

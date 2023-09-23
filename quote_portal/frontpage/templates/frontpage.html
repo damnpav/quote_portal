@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quotes Portal</title>
+        <!-- Include DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -57,8 +59,42 @@
                 </div>
                 <!-- Add more forex data as needed -->
             </div>
+            <div class="excel-data">
+                <table id="dataTable" border="1">
+                    <thead>
+                        <tr>
+                            <th>ClientName</th>
+                            <th>TaxNumber</th>
+                            <th>ForexVolume</th>
+                            <th>Countries</th>
+                            <th>Products</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in table_data %}
+                            <tr>
+                                <td>{{ row.ClientName }}</td>
+                                <td>{{ row.TaxNumber }}</td>
+                                <td>{{ row.ForexVolume }}</td>
+                                <td>{{ row.Countries }}</td>
+                                <td>{{ row.Products }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
             <p>We provide real-time quotes and historical data for various financial markets. Explore the portal to find valuable information and insights!</p>
         </div>
     </div>
+    <!-- Include jQuery and DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+
+    <!-- Initialize DataTables -->
+    <script type="text/javascript">
+        $(document).ready( function () {
+            $('#dataTable').DataTable();
+        });
+    </script>
 </body>
 </html>
